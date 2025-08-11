@@ -1,0 +1,4 @@
+# This tell pnpm where to find the sub-projects
+
+packages:
+  - 'packages:/*'
