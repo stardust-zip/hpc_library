@@ -27,6 +27,8 @@
             # Use corepack to install npm/pnpm/yarn as specified in package.json
             pkgs.corepack
 
+            pkgs.prisma-engines
+
             # To install a specific alternative package manager directly,
             # comment out one of these to use an alternative package manager.
 
@@ -46,9 +48,6 @@
             pkgs.prettierd
             pkgs.nodePackages.prettier
           ];
-        shellHook=''
-          export PS1="TypeScript Env $PS1"
-        '';
         };
 
       });

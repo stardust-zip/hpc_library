@@ -1,6 +1,7 @@
 // File này sẽ dùng để cài toàn bộ middleware, route, logic
 import express, { Request, Response } from "express";
 import helmet from "helmet";
+import bookRouter from "./routes/book.routes";
 
 const app = express();
 
@@ -12,5 +13,7 @@ app.use(express.json()); // Parse JSON bodies
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ message: "Welcome to the HPC Library API" });
 });
+
+app.use("/api/books", bookRouter);
 
 export default app;
