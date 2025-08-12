@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "vitest",
-		"dev": "ts-node-dev --respawn --transpile-only src/server.ts"
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.14.0",
   "dependencies": {
+    "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "helmet": "^8.1.0"
   },
