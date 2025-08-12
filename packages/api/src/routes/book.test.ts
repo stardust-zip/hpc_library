@@ -1,7 +1,7 @@
 import request from "supertest";
 import app from "../app";
 import prisma from "../lib/prisma";
-import { describe, it, expect, afterEach, beforeAll } from "vitest";
+import { describe, it, expect, afterEach, beforeAll, afterAll } from "vitest";
 
 describe("POST /api/books", () => {
   // Clean database after finishing
@@ -72,5 +72,30 @@ describe("GET /api/books", () => {
     expect(Array.isArray(response.body)).toBe(true);
     expect(response.body.length).toBeGreaterThanOrEqual(2);
     expect(response.body[0].title).toBe("1984");
+  });
+});
+
+describe("GET /api/books/:id", () => {
+  it("should return a single book if the valid id is provided", async () => {
+    const book = await prisma.book.create({
+      data: {
+        title: "The Lord of the Rings",
+        description: "A classic fantasy epic",
+        author: "J.R.R Tolkien",
+        isbn: "978-0618640157",
+      },
+    });
+
+    const response = await request(app).get(`/api/books/${book.id}`);
+
+    expect(response.status).toBe(200);
+    expect(response.body.id).toBe(book.id);
+    expect(response.body.title).toBe("The Lord of the Rings");
+  });
+
+  it("should return a 404 error if an invalid ID is provided", async () => {
+    const response = await request(app).get(`/api/books/invalid-id`);
+
+    expect(response.status).toBe(404);
   });
 });

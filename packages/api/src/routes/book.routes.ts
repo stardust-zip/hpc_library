@@ -30,4 +30,21 @@ router.get("/", async (req: Request, res: Response) => {
   }
 });
 
+router.get("/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params; // Extract id from the rout parameter
+    const book = await prisma.book.findUnique({
+      where: { id },
+    });
+
+    if (!book) {
+      return res.status(404).json({ message: "Book not found" });
+    }
+
+		return res.status(200).json(book);
+  } catch (error) {
+    return res.status(500).json({ message: "Failed to retrieve book" });
+  }
+});
+
 export default router;
