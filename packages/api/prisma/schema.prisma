@@ -10,7 +10,7 @@ datasource db {
 model Book {
   id          String    @id @default(cuid())
   title       String
-	description String
+	description String?
   author      String
   isbn        String		@unique
   createdAt   DateTime  @default(now())
